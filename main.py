@@ -12,6 +12,11 @@ if __name__ == '__main__':
     command = base_font.render("Enter an animal name:",True,(0,0,0))
     htp_txt = base_font.render("How to play",True,(0,0,0))
     htp_rect = pygame.Rect(800, 30, 250, 50)
+    htp_window = pygame.Rect(50, 50, 1100, 500)
+    htp_rect_clicked = False
+    htp_back_clicked = True
+    htp_back_rect = pygame.Rect(700,420,150,50)
+    htp_back_txt = base_font.render("Back",True,(0,0,0))
     input_rect = pygame.Rect(150, 150, 950, 50)
     color = (0,0,255)
     while True:
@@ -21,18 +26,28 @@ if __name__ == '__main__':
             if event.type == pygame.MOUSEBUTTONDOWN:
                  if htp_rect.collidepoint(event.pos):
                     #them phan hien len huong dan
-                    print("instruction")
+                    htp_rect_clicked = True
+                    htp_back_clicked = False
+                 if htp_back_rect.collidepoint(event.pos):
+                    htp_rect_clicked = False
+                    htp_back_clicked = True
+                    print("in")
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_BACKSPACE:
                     user_text = user_text[:-1]
                 else:
                     user_text += event.unicode
-        screen.fill((255, 255, 255))
-        screen.blit(command, (425, 100))
-        pygame.draw.rect(screen, (255,0,0), htp_rect, 0)
-        screen.blit(htp_txt, (htp_rect.x + 22, htp_rect.y + 10))
-        pygame.draw.rect(screen, color, input_rect)
-        text_surface = base_font.render(user_text, True, (255, 255, 255))
-        screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
+        if htp_back_clicked:
+            screen.fill((255, 255, 255))
+            screen.blit(command, (425, 100))
+            pygame.draw.rect(screen, (255,0,0), htp_rect, 0)
+            screen.blit(htp_txt, (htp_rect.x + 22, htp_rect.y + 10))
+            pygame.draw.rect(screen, color, input_rect)
+            text_surface = base_font.render(user_text, True, (255, 255, 255))
+            screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
+        if htp_rect_clicked:
+            pygame.draw.rect(screen, (100, 100, 100), htp_window, 0)
+            pygame.draw.rect(screen, color, htp_back_rect)
+            screen.blit(htp_back_txt, (725, 425))
         pygame.display.flip()
         clock.tick(60)
