@@ -11,7 +11,7 @@ if __name__ == '__main__':
     pygame.display.set_caption("Anidle")
     # do dai, rong window
     width = 1200
-    height = 700
+    height = 750
     # clock = pygame.time.Clock()
     # man hinh chinh
     screen = pygame.display.set_mode([width, height])
@@ -23,14 +23,15 @@ if __name__ == '__main__':
     # vi du
     works.append(Work("Co To", 1976, "Ki", 1910, 1987, "Ha Noi"))
     works.append(Work("Luom", 1975, "Ki", 1910, 1987, "Ha Noi"))
-    works.append(Work("Chi Pheo", 1976, "Tho", 1920, 1977, "Bac Ninh"))
+    works.append(Work("lhi Pheo", 1976, "Tho", 1920, 1977, "Bac Ninh"))
     # lua chon dap an dung
-    winner = works[0]
-    # winner = works[random.randint(0, len(works) - 1)]
-
+    winner = works[random.randint(0, len(works) - 1)]
+    suggestions = []
+    arrow = pygame.image.load("uparrow.png")
+    up_arrow = pygame.transform.scale(arrow, (30,30))
+    down_arrow = pygame.transform.flip(up_arrow, True, True)
     # cac man hinh
     def play():
-
         user_text = ''
         input_rect = pygame.Rect(150, 150, 950, 50)
         while True:
@@ -43,9 +44,18 @@ if __name__ == '__main__':
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if play_back_button.rect.collidepoint(event.pos):
                         main_menu()
+                    for s in suggestions:
+                        if s.rect.collidepoint(event.pos):
+                            user_text = s.txt_str
+                            if (user_text.casefold() == winner.name.casefold()):
+                                win_screen(winner)
+                            else:
+                                guesses.append(user_text)
+                            user_text = ''
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         if(user_text.casefold() == winner.name.casefold()):
+                            guesses.clear()
                             win_screen(winner)
                         else:
                             guesses.append(user_text)
@@ -70,10 +80,26 @@ if __name__ == '__main__':
             text_surface = base_font.render(user_text, True, (255, 255, 255))
             screen.blit(text_surface, (input_rect.x + 5, input_rect.y + 5))
             # print(user_text)
+            #du doan dap an
+            suggestions.clear()
+            if user_text:
+                y1 = 200
+                for work in works:
+                    if work.name.casefold().startswith(user_text):
+                        suggestions.append(Button(150, y1, 950, 50, base_font.render(work.name, True, (255, 255, 255)), (0, 255, 255), work.name))
+                        y1 += 50
+                        if(len(suggestions) > 4):
+                            break
+                for s in suggestions:
+                    s.createButton(10,22, screen)
             pygame.display.flip()
             clock.tick(60)
 
     def win_screen(work):
+        guesses.clear()
+        suggestions.clear()
+        global winner
+        winner = works[random.randint(0, len(works) - 1)]
         while True:
             screen.fill((255,255,255))
             guesss_rect = pygame.Rect(100, 100, 1050, 50)
@@ -111,6 +137,8 @@ if __name__ == '__main__':
 
 
     def main_menu():
+        guesses.clear()
+        suggestions.clear()
         while True:
             screen.fill((255, 255, 255))
             play_button = Button(100, 30, 250, 50, base_font.render("Play", True, (0, 0, 0)), (255, 255, 0))
@@ -141,21 +169,36 @@ if __name__ == '__main__':
         # so sanh
         if work.year == winner.year:
             pygame.draw.rect(screen, (0,255,0), pygame.Rect(350,y, 140, 50))
-        elif abs(work.year - winner.year) <= 10:
-            pygame.draw.rect(screen, (255, 255, 0), pygame.Rect(350, y, 140, 50))
+        else:
+            if abs(work.year - winner.year) <= 10:
+                pygame.draw.rect(screen, (255, 255, 0), pygame.Rect(350, y, 140, 50))
+            if work.year - winner.year < 0:
+                screen.blit(up_arrow, (460, y))
+            else:
+                screen.blit(down_arrow, (460, y))
 
         if work.category == winner.category:
             pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(500, y, 140, 50))
 
         if work.author_birth == winner.author_birth:
             pygame.draw.rect(screen, (0,255,0), pygame.Rect(650,y, 140, 50))
-        elif abs(work.author_birth - winner.author_birth) <= 10:
-            pygame.draw.rect(screen, (255, 255, 0), pygame.Rect(650, y, 140, 50))
+        else:
+            if abs(work.author_birth - winner.author_birth) <= 10:
+                pygame.draw.rect(screen, (255, 255, 0), pygame.Rect(650, y, 140, 50))
+            if work.author_birth - winner.author_birth < 0:
+                screen.blit(up_arrow, (760, y))
+            else:
+                screen.blit(down_arrow, (760, y))
 
         if work.author_death == winner.author_death:
             pygame.draw.rect(screen, (0,255,0), pygame.Rect(800,y, 140, 50))
-        elif abs(work.author_death - winner.author_death) <= 10:
-            pygame.draw.rect(screen, (255, 255, 0), pygame.Rect(800, y, 140, 50))
+        else:
+            if abs(work.author_death - winner.author_death) <= 10:
+                pygame.draw.rect(screen, (255, 255, 0), pygame.Rect(800, y, 140, 50))
+            if work.author_death - winner.author_death < 0:
+                screen.blit(up_arrow, (910, y))
+            else:
+                screen.blit(down_arrow, (910, y))
 
         if work.author_home == winner.author_home:
             pygame.draw.rect(screen, (0,255,0), pygame.Rect(950,y, 200, 50))
