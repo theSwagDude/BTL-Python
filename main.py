@@ -112,6 +112,7 @@ if __name__ == '__main__':
             screen.blit(background, (0, 0))
             screen.blit(base_font.render(u"Ten", True, (255, 255, 255)), (100, 50))
             screen.blit(base_font.render(u"Nam xuat ban", True, (255, 255, 255)), (300, 50))
+            screen.blit(base_font.render(u"Lop", True, (255, 255, 255)), (475, 50))
             screen.blit(base_font.render(u"The loai", True, (255, 255, 255)), (550, 50))
             screen.blit(base_font.render(u"Nam sinh", True, (255, 255, 255)), (700, 50))
             screen.blit(base_font.render(u"Nam mat", True, (255, 255, 255)), (850, 50))
@@ -120,9 +121,16 @@ if __name__ == '__main__':
             guesss_rect = pygame.Rect(25, 85, 1100, 50)
             pygame.draw.rect(screen, (50, 50, 50), guesss_rect)
 
-            screen.blit(base_font.render(work.name, True, (255, 255, 255)), (50, 100))
-            screen.blit(base_font.render(str(work.year), True, (255, 255, 255)), (300, 100))
-            screen.blit(base_font.render(work.category, True, (255, 255, 255)), (550, 100))
+            if len(work.name) < 19:
+                screen.blit(base_font.render(work.name, True, (255, 255, 255)), (50, 100))
+            else:
+                screen.blit(smaller_font.render(work.name, True, (255, 255, 255)), (50,100))
+            screen.blit(base_font.render(str(work.year), True, (255, 255, 255)), (310, 100))
+            screen.blit(base_font.render(str(work.grade), True, (255, 255, 255)), (475, 100))
+            if len(work.category) < 11:
+                screen.blit(base_font.render(work.category, True, (255, 255, 255)), (550, 100))
+            else:
+                screen.blit(smaller_cfont.render(work.category, True, (255, 255, 255)), (550, 100))
             screen.blit(base_font.render(str(work.author_birth), True, (255, 255, 255)), (700, 100))
             screen.blit(base_font.render(str(work.author_death), True, (255, 255, 255)), (850, 100))
             screen.blit(base_font.render(str(work.author_home), True, (255, 255, 255)), (1000, 100))
