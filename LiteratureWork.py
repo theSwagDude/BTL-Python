@@ -8,6 +8,6 @@ class Work:
         self.author_birth = author_birth
         self.author_death = author_death
         self.author_home = author_home
-        self.img = str(grade) + str(id) + ".jpg"
+        self.img = "images/" + str(grade) + str(id) + ".jpg"
     def __str__(self):
         return "work"
