@@ -57,14 +57,17 @@ if __name__ == '__main__':
                                 win_screen(winner)
                             else:
                                 guesses.append(user_text)
+                                if len(guesses) > 6:
+                                    win_screen(winner)
                             user_text = ''
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         if(user_text.casefold() == winner.name.casefold()):
-                            guesses.clear()
                             win_screen(winner)
                         else:
                             guesses.append(user_text)
+                            if len(guesses) > 6:
+                                win_screen(winner)
                         user_text = ''
                     elif event.key == pygame.K_BACKSPACE:
                         user_text = user_text[:-1]
@@ -72,7 +75,9 @@ if __name__ == '__main__':
                         user_text += event.unicode
             screen.fill((255, 255, 255))
             screen.blit(background, (0, 0))
-            screen.blit(command, (150, 50))
+            screen.blit(command, (150, 25))
+            guess_num = base_font.render("Luot doan: " + str(len(guesses) + 1) + "/8", True, (169, 252, 3))
+            screen.blit(guess_num, (150,60))
             play_back_button.createButton(30, 15, screen)
 
             # xu li bai doan
