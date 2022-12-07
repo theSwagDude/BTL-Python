@@ -28,12 +28,12 @@ if __name__ == '__main__':
     winner = works[15]
     suggestions = []
 
-    background = pygame.image.load("background.jpg")
+    background = pygame.image.load("images/background.jpg")
     background = pygame.transform.scale(background,(1200,750))
-    arrow = pygame.image.load("uparrow.png")
+    arrow = pygame.image.load("images/uparrow.png")
     up_arrow = pygame.transform.scale(arrow, (30,30))
     down_arrow = pygame.transform.flip(up_arrow, True, True)
-    htp_img = pygame.image.load("howtoplay.png")
+    htp_img = pygame.image.load("images/howtoplay.png")
     htp_img = pygame.transform.scale(htp_img, (1200,750))
 
     # cac man hinh
@@ -232,9 +232,9 @@ if __name__ == '__main__':
                 screen.blit(down_arrow, (490, y))
 
         if work.category == winner.category:
-            pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(525, y, 145, 50))
+            pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(525, y, 150, 50))
         elif checkString(work.category, winner.category):
-            pygame.draw.rect(screen, (240, 252, 3), pygame.Rect(525, y, 145, 50))
+            pygame.draw.rect(screen, (240, 252, 3), pygame.Rect(525, y, 150, 50))
 
         if work.author_birth == winner.author_birth:
             pygame.draw.rect(screen, (0,255,0), pygame.Rect(680,y, 110, 50))
@@ -267,9 +267,9 @@ if __name__ == '__main__':
         screen.blit(base_font.render(str(work.year), True, (255,255,255)), (310, y + 15))
         screen.blit(base_font.render(str(work.grade), True, (255, 255, 255)), (475, y + 15))
         if len(work.category) < 11:
-            screen.blit(base_font.render(work.category, True, (255,255,255)), (550, y+15))
+            screen.blit(base_font.render(work.category, True, (255,255,255)), (530, y+15))
         else:
-            screen.blit(smaller_cfont.render(work.category, True, (255, 255, 255)), (550, y + 15))
+            screen.blit(smaller_cfont.render(work.category, True, (255, 255, 255)), (530, y + 15))
         screen.blit(base_font.render(str(work.author_birth), True, (255,255,255)), (700, y+15))
         screen.blit(base_font.render(str(work.author_death), True, (255,255,255)), (850, y+15))
         screen.blit(base_font.render(str(work.author_home), True, (255,255,255)), (1000, y+15))
