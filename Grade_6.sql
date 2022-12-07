@@ -122,7 +122,7 @@ INSERT INTO LWorks(Grade, Id, Name, Year, Category, Author_Name, Author_Birth, A
 VALUES(
     6,
     11,
-    "Luom,
+    "Luom",
     1949,
     "Tho 4 chu",
     "To Huu",
