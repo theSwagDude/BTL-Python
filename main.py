@@ -122,6 +122,7 @@ if __name__ == '__main__':
             screen.blit(base_font.render(u"Nam sinh", True, (255, 255, 255)), (700, 50))
             screen.blit(base_font.render(u"Nam mat", True, (255, 255, 255)), (850, 50))
             screen.blit(base_font.render(u"Que", True, (255, 255, 255)), (1000, 50))
+            screen.blit(base_font.render(u"Tac gia:", True, (255, 255, 255)), (100, 160))
 
             guesss_rect = pygame.Rect(25, 85, 1100, 50)
             pygame.draw.rect(screen, (50, 50, 50), guesss_rect)
@@ -139,6 +140,7 @@ if __name__ == '__main__':
             screen.blit(base_font.render(str(work.author_birth), True, (255, 255, 255)), (700, 100))
             screen.blit(base_font.render(str(work.author_death), True, (255, 255, 255)), (850, 100))
             screen.blit(base_font.render(str(work.author_home), True, (255, 255, 255)), (1000, 100))
+            screen.blit(base_font.render(work.author_name, True, (255, 255, 255)), (180, 160))
 
             play_again_button = Button(720, 440, 200, 50, base_font.render("Choi lan nua", True, (0, 0, 0)), (169, 252, 3))
             play_again_button.createButton(35, 15, screen)
